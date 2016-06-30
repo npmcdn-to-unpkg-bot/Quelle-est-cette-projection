@@ -1,0 +1,84 @@
+<form class = "formCoords" (ngSubmit)="submitNewCoords([lng.value,lat.value])" autocomplete="off">
+<md-input placeholder="Lng (x)"
+    ngControl ="lng"
+    #lng="ngForm"
+    [value] = "inputCoords.lng"
+    [dividerColor] ="lng.valid ? 'primary' : 'warn'"
+    (paste)="onPastLng($event)"
+    required
+    pattern="\s*?[0-9]*\.?[0-9]*?\s*?"
+    >
+    
+<md-hint *ngIf="!lng.valid && lng.touched" align="end">Format invalide</md-hint>
+</md-input>
+
+
+<i class="material-icons pointer" (click) = "reverseLngLat(lng,lat)" >&#xE8D4;</i> 
+
+
+<md-input placeholder="Lat (y)"
+    #lat="ngForm"
+    ngControl ="lat"
+    [value]="inputCoords.lat"
+    [dividerColor] ="lat.valid ? 'primary' : 'warn'"
+    required
+    pattern="\s*?[0-9]*\.?[0-9]*?\s*?" 
+    >
+    
+   <md-hint *ngIf="!lat.valid && lat.touched" align="end">Format invalide</md-hint> 
+</md-input>
+
+<button md-mini-fab type="submit" [disabled]="!lat.valid || !lng.valid">
+   <md-icon class="md-24">&#xE55F;</md-icon>
+</button>
+</form>
+
+<div id="orderby" layout="row">
+    <i class="material-icons">filter_list</i>
+    <span (click)="orderBy('nom')" class="pointer">
+     Nom
+     <i *ngIf="orderby == 'nom'" class="material-icons">expand_less</i>          
+     <i *ngIf="orderby == '-' + 'nom'" class="material-icons">expand_more</i>
+     <i *ngIf="orderby != '-' + 'nom' && orderby != 'nom'" class="material-icons">remove</i>
+    </span>
+    
+      <span (click)="orderBy('code')" class="pointer">
+     Code
+     <i *ngIf="orderby == 'code'" class="material-icons">expand_less</i>          
+     <i *ngIf="orderby == '-' + 'code'" class="material-icons">expand_more</i>
+     <i *ngIf="orderby != '-' + 'code' && orderby != 'code'" class="material-icons">remove</i>
+    </span>
+</div>
+
+
+<div id="list_coord">
+    <md-list class="pointer" (click)="onClickProjection(p)" [id]="p.code" *ngFor="let p of projections | orderBy: orderby ; let i = index">
+        <md-list-item class="coords_list" >
+            <md-checkbox [disabled]="true" [checked]="(selectedProjection.code == p.code)" style="margin-right: 10px">
+            </md-checkbox>
+            <div>
+                <h4 md-line> {{p.code}} </h4>
+                <p md-line> {{p.nom}} </p>
+            </div>
+           
+
+        </md-list-item>
+        <md-divider></md-divider>
+    </md-list>
+</div>
+
+<div id="selected_projection">
+    <md-card  >
+        <div *ngIf="selectedProjection.code">
+            Code : <a href="{{selectedProjection.link}}" target="_blank"> {{selectedProjection.code}} </a>
+            <br> Nom : {{selectedProjection.nom}} 
+            <br> Région : {{selectedProjection.region}}
+        </div>
+        
+           <div *ngIf="!selectedProjection.code">
+            <b> Coordonées vers points </b> <br>
+            <i>Entrer un couple de coordonées puis selectionner un système de projection  </i>
+        </div>
+        
+    </md-card>
+</div>

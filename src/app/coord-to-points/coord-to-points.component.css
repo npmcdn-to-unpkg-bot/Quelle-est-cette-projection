@@ -1,0 +1,64 @@
+#list_coord {
+  position: absolute;
+  top: 85px;
+  bottom: 150px;
+  width: 100%;
+  overflow: auto;
+  z-index: 0;
+}
+.formCoords {
+  height: 50px;
+  padding: 5px;
+}
+
+#orderby {
+   height: 24px;
+    padding-top: 0px;
+    padding-right: 5px;
+    padding-bottom: 0px;
+    padding-left: 5px;
+  
+}
+
+i {
+  vertical-align: text-top;
+}
+
+.pointer { 
+  cursor: pointer; 
+  }
+
+.pointToCoordsList h3 {
+  width:200px;
+}
+
+.coll_coords {
+  width: 150px;
+}
+
+
+#selected_projection {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 150px;
+  
+}
+md-card {  
+    background-color: whitesmoke;
+    margin: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+}
+
+md-input {
+  width: 200px;
+}
+
+span {
+      height: 24px;
+    vertical-align: sub;
+}

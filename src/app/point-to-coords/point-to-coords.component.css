@@ -1,0 +1,50 @@
+#list_coord {
+  position: absolute;
+  top: 75px;
+  bottom: 150px;
+  width: 100%;
+  overflow: auto;
+  z-index: 0;
+}
+
+#header_list_coord {
+  background-color: lightgrey;
+}
+i {
+  vertical-align: text-top;
+}
+
+.pointer { 
+  cursor: pointer; 
+  }
+
+
+
+.pointToCoordsList h3 {
+  width:200px;
+}
+
+.coll_coords {
+  width: 150px;
+}
+
+
+
+.footer {
+ 
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 150px;
+  
+}
+md-card {  
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: whitesmoke;
+    margin: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+}

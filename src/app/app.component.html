@@ -1,0 +1,100 @@
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+        <button md-raised-button [color]="mode == 'pointToCoords' ? 'accent':'primary'" (click) = "changeMode('pointToCoords')">
+            <i class="material-icons middle_bolder">place keyboard_arrow_right</i> <span class="middle_bolder">x/y</span>
+        </button>
+        
+        <button md-raised-button [color]="mode == 'coordToPoints' ? 'accent':'primary'"  (click) = "changeMode('coordToPoints')"> 
+            <span class="middle_bolder">x/y</span> <i class="material-icons middle_bolder">keyboard_arrow_right place </i> 
+        </button>
+        
+        <button md-raised-button [color]="mode == 'shpToCoords' ? 'accent':'primary'"  (click) = "changeMode('shpToCoords')"> 
+            <span class ="middle_bolder">.shp</span> <i class="material-icons middle_bolder">keyboard_arrow_right map </i> 
+        </button>
+        
+        <button md-raised-button [color]="mode == 'bboxToCoords' ? 'accent':'primary'"  (click) = "changeMode('bboxToCoords')"> 
+            <span class ="middle_bolder">Bbox <i class="material-icons middle_bolder">keyboard_arrow_right </i>  x/y</span>
+        </button>
+
+        
+      <form style="" class= "searchForm" (ngSubmit)="geocode(geocodeInput.value)" autocomplete="off">
+            <md-input 
+                #geocodeInput = "ngForm" 
+                ngControl ="geocodeInput"
+                placeholder="Rechercher un lieu"> 
+
+            </md-input>
+            
+            <button md-mini-fab type="submit" [disabled]="!geocodeInput.value" style="vertical-align: middle;">
+                <md-icon class="md-24">search</md-icon>
+            </button>
+              <button md-mini-fab [color]= 'primary' (click)="getLocation()" style="vertical-align: middle;">
+                <md-icon class="md-24">my_location</md-icon>
+            </button>
+        </form>
+           
+            
+                 
+        <form id ="filterForm" (ngSubmit)="filterProjection(_filterText.value)" autocomplete="off">
+            <md-input 
+                [(ngModel)] = "filterText"
+                #_filterText = "ngForm" 
+                ngControl ="filterText"
+                placeholder="Filtrer par nom ou SRID"> 
+                
+                <span class="pointer" md-suffix (click)="filterProjectionReset()"> 
+                    <i class="material-icons" style = "vertical-align: bottom; cursor: pointer;">clear</i> 
+                </span>
+            </md-input>
+            
+            <button md-mini-fab type="submit" [disabled]="!_filterText.value" style="vertical-align: middle;">
+                <md-icon class="md-24">filter_list</md-icon>
+            </button>
+        </form>
+        
+    </div>
+  </md-toolbar>
+    <div id="main">
+  <div id='map'> </div>
+
+    <br>
+
+    <div id="rigth">
+    
+    <point-to-coord-list *ngIf= "mode == 'pointToCoords'"  
+        [projections]="projectionsFilter" 
+        [pointToCoords]="pointToCoords"
+        (onInitPt2coords) = "onInitPt2coords($event)"
+     ></point-to-coord-list>   
+    
+    <coord-to-points  *ngIf = "mode =='coordToPoints'" 
+        (projSelected)= "coord2pts_coordSelected($event)" 
+        (newCoordsEvent)="coords2PointNewCoords($event)"
+        (onInitCoords2pts) = "onInitCoords2pts($event)"
+        (newCoords2Pts) = "newCoords2Pts($event)"
+        [projections]="projectionsFilter" 
+        [coordsToPoints] = "coordsToPoints"
+        [selected_projection_code] = "selected_projection_code"
+        [filterText] = filterText
+  
+    ></coord-to-points> 
+    
+     <shp-to-coords *ngIf = "mode =='shpToCoords'" 
+         (shpCoordsBbox) = "shpCoordsBbox($event)"
+         (projSelected)= "shpCoordSelected($event)"
+         (newShpParams)= "newShpParams($event)"
+         (onInitShpToCoords) = "onInitShpToCoords($event)"
+         [projections]="projectionsFilter"
+         [shpParams]="shpParams"
+         [selected_projection_code] = "selected_projection_code"
+     ></shp-to-coords>
+     
+     <bbox-to-coords *ngIf = "mode =='bboxToCoords'"
+         [projections]="projectionsFilter"
+         [selected_projection_code] = "selected_projection_code"
+         [bboxToCoords] = "bboxToCoords"
+         (onInitBboxToCoords) = "onInitBboxToCoords($event)"
+     ></bbox-to-coords>
+     
+    </div>
+    </div>

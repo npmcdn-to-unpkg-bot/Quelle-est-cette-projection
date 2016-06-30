@@ -1,0 +1,35 @@
+$md-is-dark-theme: false;
+
+$md-primary:    #3F51B5;
+$md-accent:    #FFC107;
+
+.md-accent[md-raised-button], .md-accent[md-fab], .md-accent[md-mini-fab]{
+  background-color: $md-accent !important;
+}
+
+.md-primary[md-raised-button], .md-primary[md-fab], .md-primary[md-mini-fab]{
+  background-color: $md-primary !important;
+}
+
+[md-mini-fab] {
+  background-color: $md-primary !important;
+}
+
+
+.md-primary[disabled][md-raised-button], .md-primary[disabled][md-fab], .md-primary[disabled][md-mini-fab], .md-accent[disabled][md-raised-button], .md-accent[disabled][md-fab], .md-accent[disabled][md-mini-fab], .md-warn[disabled][md-raised-button], .md-warn[disabled][md-fab], .md-warn[disabled][md-mini-fab], [disabled][disabled][md-raised-button], [disabled][disabled][md-fab], [disabled][disabled][md-mini-fab] {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.linkSRID {
+  cursor: pointer;
+  color: $md-primary;
+  vertical-align: middle;
+}

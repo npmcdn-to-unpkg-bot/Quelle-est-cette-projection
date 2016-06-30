@@ -1,0 +1,58 @@
+
+
+
+
+
+$rightColumn :500px;
+
+
+#main{
+  position: absolute;
+  top:0px;
+  bottom: 0px;
+  width: 100%;
+  margin-top: 64px;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left:0;
+  right: $rightColumn ;
+}
+
+#rigth {
+  position: absolute;
+  top:0px;
+  bottom: 0px;
+  right: 0;
+  width: $rightColumn;
+}
+.extra-marker .fa-number:before {
+    font-style: normal;
+    font-weight: bolder;
+    font-family: sans-serif;
+}
+
+.loadpage{
+  font-size: 200;
+}
+
+.middle_bolder{
+  vertical-align: middle;
+  font-weight: bolder;
+}
+
+#filterForm {
+     position: absolute;
+    right: 0;
+    top: 0;
+    display: inline;
+    margin:5px;
+}
+
+.searchForm {
+  display: inline;
+  margin-left: 50px;
+}

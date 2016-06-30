@@ -1,0 +1,54 @@
+<input type="file" id="file" accept="..shp , .SHP" (change)="onChange($event)" />
+
+
+
+<div id="orderby" layout="row">
+    <i class="material-icons">filter_list</i>
+    <span (click)="orderBy('nom')" class="pointer">
+     Nom
+     <i *ngIf="orderby == 'nom'" class="material-icons">expand_less</i>          
+     <i *ngIf="orderby == '-' + 'nom'" class="material-icons">expand_more</i>
+     <i *ngIf="orderby != '-' + 'nom' && orderby != 'nom'" class="material-icons">remove</i>
+    </span>
+
+    <span (click)="orderBy('code')" class="pointer">
+     Code
+     <i *ngIf="orderby == 'code'" class="material-icons">expand_less</i>          
+     <i *ngIf="orderby == '-' + 'code'" class="material-icons">expand_more</i>
+     <i *ngIf="orderby != '-' + 'code' && orderby != 'code'" class="material-icons">remove</i>
+    </span>
+</div>
+
+<div id="list_coord">
+    <md-list class="pointer" (click)="onClickProjection(p)" [id]="p.code" *ngFor="let p of projections | orderBy: orderby ; let i = index">
+        <md-list-item class="coords_list">
+            <md-checkbox [disabled]="true" style="margin-right: 10px" [checked]="(selected_projection_code == p.code)">
+            </md-checkbox>
+            <div>
+                <h4 md-line> {{p.code}} </h4>
+                <p md-line> {{p.nom}} </p>
+            </div>
+
+
+        </md-list-item>
+        <md-divider></md-divider>
+    </md-list>
+</div>
+
+
+
+<div id="selected_projection">
+    <md-card>
+        <div *ngIf="selected_projection_code">
+            Code : <a href="{{selectedProjection.link}}" target="_blank"> {{selectedProjection.code}} </a>
+            <br> Nom : {{selectedProjection.nom}}
+            <br> Région : {{selectedProjection.region}}
+        </div>
+
+        <div *ngIf="!selectedProjection.code">
+            <b> Dessiner l'emprise d'un shapefile' </b> <br>
+            <i>Selectionner un .shp</i>
+        </div>
+
+    </md-card>
+</div>

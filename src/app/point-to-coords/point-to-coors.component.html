@@ -1,0 +1,65 @@
+<md-list>
+    <md-list-item class="coords_list">
+        <div style="width:200px;min-width: 200px">
+
+            <h4 md-line (click)="orderBy('code')" class="pointer"> Code  
+                <i *ngIf= "orderby == 'code'" class="material-icons">expand_less</i>
+                <i *ngIf= "orderby == '-' + 'code'" class="material-icons">expand_more</i>
+                <i *ngIf= "orderby != '-' + 'code' && orderby != 'code'" class="material-icons">remove</i>
+            </h4>
+
+            <p md-line (click)="orderBy('nom')" class="pointer"> Nom
+                <i *ngIf="orderby == 'nom'" class="material-icons">expand_less</i>
+                <i *ngIf="orderby == '-' + 'nom'" class="material-icons">expand_more</i>
+                <i *ngIf="orderby != '-' + 'nom' && orderby != 'nom'" class="material-icons">remove</i>
+            </p>
+        </div>
+        <div class="coll_coords pointer" (click)="orderBy('lng')"> Lng / x
+            <i *ngIf="orderby == 'lng'" class="material-icons">expand_less</i>
+            <i *ngIf="orderby == '-' + 'lng'" class="material-icons">expand_more</i>
+            <i *ngIf="orderby != '-' + 'lng' && orderby != 'lng'" class="material-icons">remove</i>
+        </div>
+        <div class="coll_coords pointer" (click)="orderBy('lat')" class="pointer"> Lat / y
+            <i *ngIf="orderby == 'lat'" class="material-icons">expand_less</i>
+            <i *ngIf="orderby == '-' + 'lat'" class="material-icons">expand_more</i>
+            <i *ngIf="orderby != '-' + 'lat' && orderby != 'lat'" class="material-icons">remove</i>
+        </div>
+
+    </md-list-item>
+
+    <md-divider></md-divider>
+</md-list>
+
+
+<div id="list_coord">
+    <md-list class="pointer" (click)="onClickProjection(p)" *ngFor="let p of point_to_coords_list | orderBy: orderby; let i = index">
+        <md-list-item class="coords_list">
+            <md-checkbox [checked]="(selectedProjection.code == p.code)" [disabled]="true" style="margin-right: 10px">
+            </md-checkbox>
+            <div style="width:200px;min-width: 200px">
+                <h4 md-line> {{p.code}} </h4>
+                <p md-line> {{p.nom}} </p>
+            </div>
+            <div class="coll_coords"> {{p.lng | roundcoords}} </div>
+            <div class="coll_coords"> {{p.lat | roundcoords}} </div>
+
+        </md-list-item>
+        <md-divider></md-divider>
+    </md-list>
+</div>
+
+<div class="footer" id="selected_projection">
+    <md-card>
+        <div *ngIf="selectedProjection.code">
+            Code : <a href="{{selectedProjection.link}}" target="_blank"> {{selectedProjection.code}} </a>
+            <br> Nom : {{selectedProjection.nom}}
+            <br> Lng : {{selectedProjection.lng}}
+            <br> Lat : {{selectedProjection.lat}}
+        </div>
+
+        <div *ngIf="!selectedProjection.code">
+            <b> Point vers coordonées </b> <br>
+            <i>Cliquer sur la carte puis selectionner un système de projection </i>
+        </div>
+    </md-card>
+</div>

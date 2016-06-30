@@ -1,0 +1,84 @@
+<md-list>
+    <md-list-item class="coords_list">
+        <div style="width:200px;min-width: 200px">
+
+            <h4 md-line (click)="orderBy('code')" class="pointer"> Code  
+                <i *ngIf= "orderby == 'code'" class="material-icons">expand_less</i>
+                <i *ngIf= "orderby == '-' + 'code'" class="material-icons">expand_more</i>
+                <i *ngIf= "orderby != '-' + 'code' && orderby != 'code'" class="material-icons">remove</i>
+            </h4>
+
+            <p md-line (click)="orderBy('nom')" class="pointer"> Nom
+                <i *ngIf="orderby == 'nom'" class="material-icons">expand_less</i>
+                <i *ngIf="orderby == '-' + 'nom'" class="material-icons">expand_more</i>
+                <i *ngIf="orderby != '-' + 'nom' && orderby != 'nom'" class="material-icons">remove</i>
+            </p>
+        </div>
+
+    </md-list-item>
+
+    <md-divider></md-divider>
+</md-list>
+
+
+
+
+
+<div id="list_coord">
+    <md-list class="pointer" (click)="onClickProjection(p)" *ngFor="let p of bboxToCoordsList | orderBy: orderby; let i = index">
+        <md-list-item class="coords_list">
+            <md-checkbox  [disabled] = "true" [checked]="(selectedProjection.code == p.code)" style="margin-right: 10px">
+            </md-checkbox>
+            <div style="width:200px;min-width: 200px">
+                <h4 md-line> {{p.code}} </h4>
+                <p md-line> {{p.nom}} </p>
+            </div>
+
+        </md-list-item>
+        <md-divider></md-divider>
+    </md-list>
+</div>
+
+
+<div class="footer" id="selected_projection">
+    <md-card>
+        <div *ngIf="selectedProjection.code">
+            <div class="fontBoldRoboto">
+                Code : <a href="{{selectedProjection.link}}" target="_blank"> {{selectedProjection.code}} </a>
+                <br> Nom : {{selectedProjection.nom}}
+            </div>
+
+
+            <label style="width:100%; font-size: small; display: block;"> {{selectedProjection.coords[0][0] | roundcoords}},  {{selectedProjection.coords[0][1] | roundcoords}}, 
+                {{selectedProjection.coords[1][0] | roundcoords}}, {{selectedProjection.coords[1][1] | roundcoords}}
+                </label>
+
+
+          <div>
+            <select [(ngModel)]="currentFormat" (change)="formatChange($event)">
+                        <option value="wkt">WKT</option>
+                        <option value="geojson">GeoJson geom </option>
+                        <option value="xyMinMax">xyMinMax</option>
+                        <option value="yxMinMax">yxMinMax</option>
+                        <option value="overpassXML">overpassXML</option>
+                        <option value="overpassQL">overpassQL</option>
+                    </select>
+             
+            <md-input  #inputTarget type="text" style="font-size: small;" 
+                placeholder="Exporter"
+                disabled = "true"
+                [(ngModel)]="coordsFormatString">
+                               
+            </md-input>
+            <i ngIIclipboard [cbContent]="coordsFormatString" class="material-icons pointer">&#xE14D;</i> 
+            
+
+            </div>
+        </div>
+        
+           <div *ngIf="!selectedProjection.code">
+            <b> Bounding box vers coordonnées </b> <br>
+            <i>Dessiner un rectangle sur la carte puis sélectionner un système de projection</i>
+        </div>
+    </md-card>
+</div>
