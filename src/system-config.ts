@@ -8,7 +8,7 @@
 /** Map relative paths to URLs. */
 const map: any = {
   '@angular2-material': 'vendor/@angular2-material',
-  'clipboard': 'https://npmcdn.com/clipboard@1.5.10/dist/clipboard.js',
+  'clipboard': 'https://unpkg.com/clipboard@1.5.10/dist/clipboard.js',
   'angular2-clipboard': 'vendor/angular2-clipboard'
 };
 
